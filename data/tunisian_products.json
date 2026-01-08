@@ -1,0 +1,30 @@
+{
+  "products": [
+    {"id": 1, "name": "Dattes Medjoul", "brand": "Medjoul Tunisia", "category": "Fruits", "origin": "Tunisie", "description": "Dattes locales de Tunisie, qualité Medjoul", "rating": 4.8, "local": true},
+    {"id": 2, "name": "Fruits et légumes locaux", "brand": "BioTunisie", "category": "Fruits", "origin": "Tunisie", "description": "Fruits et légumes cultivés localement en Tunisie", "rating": 4.6, "local": true},
+    {"id": 3, "name": "Houmous tunisien", "brand": "Carrefour Bio Tunisie", "category": "Alimentation", "origin": "Tunisie", "description": "Houmous fabriqué en Tunisie, disponible en magasins bio", "rating": 4.5, "local": true},
+    {"id": 4, "name": "Savon à l'huile d'olive", "brand": "Alkemia", "category": "Cosmétiques", "origin": "Tunisie", "description": "Savon naturel fabriqué en Tunisie, alternative aux cosmétiques Ahava", "rating": 4.7, "local": true},
+    {"id": 5, "name": "Machine à gazéifier", "brand": "HomeFizz Tunisia", "category": "Boissons", "origin": "Tunisie", "description": "Machines locales pour gazéifier l'eau", "rating": 4.3, "local": true},
+    {"id": 6, "name": "Médicaments génériques tunisiens", "brand": "Sahel Pharma", "category": "Pharmacie", "origin": "Tunisie", "description": "Médicaments fabriqués localement en Tunisie", "rating": 4.6, "local": true},
+    {"id": 7, "name": "Rangements et articles ménagers", "brand": "Tunisia Maison", "category": "Maison", "origin": "Tunisie", "description": "Solutions de rangement produites localement", "rating": 4.4, "local": true},
+    {"id": 8, "name": "Vin tunisien", "brand": "Domaine Khaznadar", "category": "Boissons", "origin": "Tunisie", "description": "Vins produits en Tunisie", "rating": 4.5, "local": true},
+    {"id": 9, "name": "Biscuits tunisiens", "brand": "Délices de Tunisie", "category": "Alimentation", "origin": "Tunisie", "description": "Biscuits artisanaux tunisiens", "rating": 4.7, "local": true},
+    {"id": 10, "name": "Avocats tunisiens", "brand": "GreenTunisia", "category": "Fruits", "origin": "Tunisie", "description": "Avocats cultivés en Tunisie", "rating": 4.6, "local": true},
+    {"id": 11, "name": "Fruits et légumes locaux", "brand": "Ferme El Khadhra", "category": "Fruits", "origin": "Tunisie", "description": "Alternatives locales aux fruits Jaffa", "rating": 4.5, "local": true},
+    {"id": 12, "name": "Fruits et légumes locaux", "brand": "Ferme Tunis", "category": "Fruits", "origin": "Tunisie", "description": "Alternatives locales aux fruits Hadiklaim", "rating": 4.5, "local": true},
+    {"id": 13, "name": "Fruits et légumes locaux", "brand": "BioTunisie", "category": "Fruits", "origin": "Tunisie", "description": "Alternatives locales aux fruits Mehadrin", "rating": 4.6, "local": true},
+    {"id": 14, "name": "Fruits et légumes locaux", "brand": "Tunisia Fresh", "category": "Fruits", "origin": "Tunisie", "description": "Alternatives locales aux fruits Top", "rating": 4.5, "local": true},
+    {"id": 15, "name": "Vin tunisien", "brand": "Domaine El Amen", "category": "Boissons", "origin": "Tunisie", "description": "Vins produits localement en Tunisie, alternative à Jordan River", "rating": 4.6, "local": true},
+    {"id": 16, "name": "Epilation électrique tunisienne", "brand": "Tunisie Beauty", "category": "Cosmétiques", "origin": "Tunisie", "description": "Appareils d'épilation fabriqués localement", "rating": 4.3, "local": true},
+    {"id": 17, "name": "Conserves tunisiennes", "brand": "Délices de Tunisie", "category": "Alimentation", "origin": "Tunisie", "description": "Conserves alimentaires locales", "rating": 4.5, "local": true},
+    {"id": 18, "name": "Conserves de poissons", "brand": "Poissonnerie Tunisienne", "category": "Alimentation", "origin": "Tunisie", "description": "Conserves de poissons produites localement", "rating": 4.4, "local": true},
+    {"id": 19, "name": "Miel et herbes locales", "brand": "Miel du Sahel", "category": "Alimentation", "origin": "Tunisie", "description": "Miel et herbes produits en Tunisie", "rating": 4.8, "local": true},
+    {"id": 20, "name": "Produits végétariens", "brand": "Green Tunisie", "category": "Alimentation", "origin": "Tunisie", "description": "Produits végétariens fabriqués localement", "rating": 4.5, "local": true},
+    {"id": 21, "name": "Concombres locaux", "brand": "Ferme Tunis", "category": "Fruits", "origin": "Tunisie", "description": "Concombres cultivés localement", "rating": 4.4, "local": true},
+    {"id": 22, "name": "Tomates cerises locales", "brand": "Ferme El Khadhra", "category": "Fruits", "origin": "Tunisie", "description": "Tomates cerises cultivées localement", "rating": 4.6, "local": true},
+    {"id": 23, "name": "Café Bondin", "brand": "Bondin", "category": "Boissons", "origin": "Tunisie", "description": "Café tunisien premium, alternative à Nescafé", "rating": 4.7, "local": true},
+    {"id": 24, "name": "Boga Lim", "brand": "SFBT", "category": "Boissons", "origin": "Tunisie", "description": "Soda au citron rafraîchissant tunisien", "rating": 4.8, "local": true},
+    {"id": 25, "name": "Le Prestige Burger", "brand": "Le Prestige", "category": "Alimentation", "origin": "Tunisie", "description": "Chaîne de fast-food locale tunisienne", "rating": 4.2, "local": true},
+    {"id": 26, "name": "Café Carthage", "brand": "Carthage", "category": "Boissons", "origin": "Tunisie", "description": "Café authentique tunisien", "rating": 4.6, "local": true}
+  ]
+}

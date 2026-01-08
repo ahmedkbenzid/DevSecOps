@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  consumesafe:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: consumesafe-api
+    ports:
+      - "8000:8000"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+      - LOG_LEVEL=info
+      - BOYCOTT_DATA_PATH=/app/data/boycott_list.json
+      - PRODUCTS_DATA_PATH=/app/data/tunisian_products.json
+    volumes:
+      - ./data:/app/data:ro
+      - ./src:/app/src:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 40s
+    security_opt:
+      - no-new-privileges:true
+    read_only_root_filesystem: true
+    tmpfs:
+      - /tmp
+      - /var/tmp

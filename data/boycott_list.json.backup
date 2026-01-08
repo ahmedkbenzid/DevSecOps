@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "name": "Nestlé",
+      "brands": ["nestlé", "nescafé", "perrier", "haagen-dazs"],
+      "products": ["coffee", "water", "ice cream"],
+      "keywords": ["nestlé"],
+      "reason": "Alleged violations of Palestinian rights and water rights",
+      "date_added": "2023-01-01",
+      "is_active": true
+    },
+    {
+      "id": 2,
+      "name": "Coca-Cola",
+      "brands": ["coca-cola", "sprite", "fanta", "minute maid"],
+      "products": ["soda", "juice", "beverages"],
+      "keywords": ["coca-cola"],
+      "reason": "Water resource exploitation and environmental concerns",
+      "date_added": "2023-02-01",
+      "is_active": true
+    },
+    {
+      "id": 3,
+      "name": "Starbucks",
+      "brands": ["starbucks"],
+      "products": ["coffee"],
+      "keywords": ["starbucks"],
+      "reason": "Pro-Israel stance and environmental practices",
+      "date_added": "2023-03-01",
+      "is_active": true
+    },
+    {
+      "id": 4,
+      "name": "McDonald's",
+      "brands": ["mcdonald's", "mcd"],
+      "products": ["fast food"],
+      "keywords": ["mcdonalds"],
+      "reason": "Labor practices and corporate policies",
+      "date_added": "2023-04-01",
+      "is_active": true
+    }
+  ]
+}

@@ -1,0 +1,244 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: consumesafe
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: consumesafe-config
+  namespace: consumesafe
+data:
+  HOST: "0.0.0.0"
+  PORT: "8000"
+  LOG_LEVEL: "info"
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: consumesafe-secrets
+  namespace: consumesafe
+type: Opaque
+data:
+  # base64 encoded values
+  API_KEY: ""
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumesafe-api
+  namespace: consumesafe
+  labels:
+    app: consumesafe
+    version: v1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: consumesafe
+  template:
+    metadata:
+      labels:
+        app: consumesafe
+        version: v1
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8000"
+        prometheus.io/path: "/metrics"
+    spec:
+      serviceAccountName: consumesafe
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: api
+        image: consumesafe:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8000
+          protocol: TCP
+        env:
+        - name: HOST
+          valueFrom:
+            configMapKeyRef:
+              name: consumesafe-config
+              key: HOST
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: consumesafe-config
+              key: PORT
+        - name: LOG_LEVEL
+          valueFrom:
+            configMapKeyRef:
+              name: consumesafe-config
+              key: LOG_LEVEL
+        - name: BOYCOTT_DATA_PATH
+          value: /app/data/boycott_list.json
+        - name: PRODUCTS_DATA_PATH
+          value: /app/data/tunisian_products.json
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 2
+        volumeMounts:
+        - name: data
+          mountPath: /app/data
+          readOnly: true
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          capabilities:
+            drop:
+            - ALL
+      volumes:
+      - name: data
+        configMap:
+          name: consumesafe-data
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: consumesafe-api
+  namespace: consumesafe
+  labels:
+    app: consumesafe
+spec:
+  type: ClusterIP
+  selector:
+    app: consumesafe
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8000
+    protocol: TCP
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: consumesafe-hpa
+  namespace: consumesafe
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: consumesafe-api
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: consumesafe-pdb
+  namespace: consumesafe
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: consumesafe
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ServiceAccount
+metadata:
+  name: consumesafe
+  namespace: consumesafe
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: consumesafe
+  namespace: consumesafe
+rules:
+- apiGroups: [""]
+  resources: ["configmaps"]
+  verbs: ["get", "list", "watch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: consumesafe
+  namespace: consumesafe
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: consumesafe
+subjects:
+- kind: ServiceAccount
+  name: consumesafe
+  namespace: consumesafe
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: consumesafe-network-policy
+  namespace: consumesafe
+spec:
+  podSelector:
+    matchLabels:
+      app: consumesafe
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+    ports:
+    - protocol: TCP
+      port: 8000
+  egress:
+  - to:
+    - namespaceSelector: {}
+    ports:
+    - protocol: TCP
+      port: 53
+    - protocol: UDP
+      port: 53

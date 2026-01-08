@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: consumesafe-data-sync
+  namespace: consumesafe
+spec:
+  schedule: "0 */6 * * *"  # Every 6 hours
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: consumesafe
+          containers:
+          - name: sync
+            image: consumesafe:latest
+            command: ["/bin/sh", "-c", "python src/sync_data.py"]
+            env:
+            - name: BOYCOTT_DATA_PATH
+              value: /app/data/boycott_list.json
+            - name: PRODUCTS_DATA_PATH
+              value: /app/data/tunisian_products.json
+          restartPolicy: OnFailure

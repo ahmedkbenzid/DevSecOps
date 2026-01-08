@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConsumeSafe - Product Boycott Checker</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛡️ ConsumeSafe</h1>
+            <p class="subtitle">Check products against boycott list and discover Tunisian alternatives</p>
+        </header>
+
+        <div class="search-section">
+            <div class="card">
+                <h2>Check a Product</h2>
+                <form id="checkForm">
+                    <div class="form-group">
+                        <label for="productName">Product Name *</label>
+                        <input type="text" id="productName" name="productName" placeholder="e.g., Coffee" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="brand">Brand (Optional)</label>
+                        <input type="text" id="brand" name="brand" placeholder="e.g., Nescafé">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Category (Optional)</label>
+                        <select id="category" name="category">
+                            <option value="">-- Select Category --</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <span class="btn-text">Check Product</span>
+                        <span class="loader" style="display: none;"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div id="results" class="results-section" style="display: none;">
+            <!-- Results will be inserted here -->
+        </div>
+
+        <footer>
+            <p>ConsumeSafe API - Promoting ethical consumption</p>
+        </footer>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
