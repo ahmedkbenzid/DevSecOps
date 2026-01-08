@@ -87,7 +87,7 @@ class TestProductAnalyzer:
             "/check",
             json={
                 "product_name": "coffee",
-                "category": "Beverages"
+                "category": "Boissons"
             }
         )
         assert response.status_code == 200
