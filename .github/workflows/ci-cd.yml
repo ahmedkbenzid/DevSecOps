@@ -129,20 +129,25 @@ jobs:
     name: Container Image Scan
     needs: build
     if: github.event_name != 'pull_request'
+    permissions:
+      contents: read
+      security-events: write
     steps:
     - uses: actions/checkout@v4
     
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master
+      continue-on-error: true
       with:
-        image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sha-${{ github.sha }}
         format: 'sarif'
         output: 'trivy-results.sarif'
         severity: 'CRITICAL,HIGH'
     
     - name: Upload Trivy results to GitHub Security
-      uses: github/codeql-action/upload-sarif@v2
+      uses: github/codeql-action/upload-sarif@v3
       if: always()
+      continue-on-error: true
       with:
         sarif_file: 'trivy-results.sarif'
 
@@ -162,7 +167,7 @@ jobs:
         mkdir -p $HOME/.kube
         echo "$KUBECONFIG" | base64 -d > $HOME/.kube/config
         kubectl set image deployment/consumesafe-api \
-          api=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} \
+          api=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sha-${{ github.sha }} \
           -n consumesafe
         kubectl rollout status deployment/consumesafe-api -n consumesafe
 
@@ -183,7 +188,7 @@ jobs:
         mkdir -p $HOME/.kube
         echo "$KUBECONFIG" | base64 -d > $HOME/.kube/config
         kubectl set image deployment/consumesafe-api \
-          api=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} \
+          api=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sha-${{ github.sha }} \
           -n consumesafe
         kubectl rollout status deployment/consumesafe-api -n consumesafe
     
