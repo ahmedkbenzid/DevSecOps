@@ -173,10 +173,10 @@ jobs:
 
   # Deploy to Prod
   deploy-prod:
+    if: false
     runs-on: ubuntu-latest
     name: Deploy to Production
     needs: scan
-    if: github.ref == 'refs/heads/main'
     environment: production
     steps:
     - uses: actions/checkout@v4
